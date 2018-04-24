@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pin-note (0.1.0)
+    pin_note (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -18,7 +18,7 @@ DEPENDENCIES
   awesome_print (~> 1.8)
   bundler (~> 1.16)
   minitest (~> 5.0)
-  pin-note!
+  pin_note!
   rake (~> 10.0)
   thor (~> 0.20.0)
 

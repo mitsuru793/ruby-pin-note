@@ -1,11 +1,11 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "pin/note/version"
+require "pin_note/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "pin-note"
-  spec.version       = Pin::Note::VERSION
+  spec.name          = "pin_note"
+  spec.version       = PinNote::VERSION
   spec.authors       = ["mitsuru793"]
   spec.email         = ["mitsuru793@gmail.com"]
 
