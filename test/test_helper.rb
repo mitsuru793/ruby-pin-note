@@ -36,5 +36,14 @@ class PinNoteUnitTest < Minitest::Test
     FakeFS.deactivate!
     saved
   end
+
+  def capture
+    old_stdout = $stdout
+    $stdout = StringIO.new
+    yield
+    $stdout.string
+  ensure
+    $stdout = old_stdout
+  end
 end
 
