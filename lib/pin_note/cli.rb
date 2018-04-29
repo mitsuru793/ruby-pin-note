@@ -22,6 +22,21 @@ module PinNote
       end
     end
 
+    desc "list", "List notes."
+
+    def list
+      load_saved.each do |note_hash|
+        note = Note.new(note_hash)
+        date = note.created_at.strftime('%Y-%m-%d %H:%M:%S')
+
+        if note.category.nil?
+          puts sprintf('[%s] %s', date, note.note)
+        else
+          puts sprintf('[%s] %s: %s', date, note.category, note.note)
+        end
+      end
+    end
+
     private
     def config_path
       File.expand_path('~/.pin-note.yml')
