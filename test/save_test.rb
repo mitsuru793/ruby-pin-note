@@ -1,6 +1,26 @@
 require "test_helper"
 
 class SaveTest < PinNoteUnitTest
+  def test_save_to_loaded
+    run_command(%w[save yeah])
+    saved = run_command(%w[save --category greet hello])
+
+    expected = [
+        {
+            note: 'yeah',
+            category: nil,
+            created_at: @now,
+        },
+        {
+            note: 'hello',
+            category: 'greet',
+            created_at: @now,
+        }
+    ]
+
+    assert_equal(expected, saved)
+  end
+
   def test_save_word_without_category
     saved = run_command(%w[save Hello world!])
 

@@ -7,14 +7,21 @@ module PinNote
     option :category, aliases: :c, type: :string, desc: 'Save note on CATEGORY'
 
     def save(*word)
+      if File.exist?(config_path)
+        saved = YAML.load_file(config_path)
+      else
+        saved = []
+      end
+
       note = Note.new(
           note: word.join(' '),
           category: options[:category] || ENV['PIN_NOTE_CATEGORY'] || nil,
           created_at: Time.now,
           )
+      saved.push(note.to_h)
 
       File.open(config_path, 'w') do |f|
-        YAML.dump([note.to_h], f)
+        YAML.dump(saved, f)
       end
     end
 
