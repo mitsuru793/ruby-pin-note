@@ -3,7 +3,7 @@ require 'awesome_print'
 
 module PinNote
   class Cli < Thor
-    desc "save Here is note... #tag", "Save note."
+    desc "save Here is note... #tag", "Save a note."
     option :category, aliases: :c, type: :string, desc: 'Save note on CATEGORY'
 
     def save(*word)
