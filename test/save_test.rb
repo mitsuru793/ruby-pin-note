@@ -6,7 +6,6 @@ class SaveTest < PinNoteUnitTest
 
     expected = [
         {
-            id: 1,
             note: 'Hello world!',
             category: nil,
             created_at: @now,
@@ -20,7 +19,6 @@ class SaveTest < PinNoteUnitTest
 
     expected = [
         {
-            id: 1,
             note: 'Hello world!',
             category: 'greet',
             created_at: @now,

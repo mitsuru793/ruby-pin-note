@@ -9,7 +9,6 @@ module PinNote
     def save(*word)
       data = [
           {
-              id: 1,
               note: word.join(' '),
               category: options[:category] || ENV['PIN_NOTE_CATEGORY'] || nil,
               created_at: Time.now,
