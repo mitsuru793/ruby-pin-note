@@ -25,8 +25,7 @@ class PinNoteUnitTest < Minitest::Test
 
   private
   def run_command(args, config_path = '~/.pin-note.yml')
-    saved = nil
-    FakeFS do
+    FakeFS.activate!
       FileUtils.mkdir_p(File.expand_path('~'))
 
       Time.stub :now, @now do
@@ -34,7 +33,7 @@ class PinNoteUnitTest < Minitest::Test
       end
 
       saved = YAML.load_file(File.expand_path(config_path))
-    end
+    FakeFS.deactivate!
     saved
   end
 end
