@@ -7,7 +7,6 @@ module PinNote
     option :category, aliases: :c, type: :string, desc: 'Save note on CATEGORY'
 
     def save(*word)
-      config_path = File.expand_path('~/.pin-note.yml')
       data = [
           {
               id: 1,
@@ -19,6 +18,11 @@ module PinNote
       File.open(config_path, 'w') do |f|
         YAML.dump(data, f)
       end
+    end
+
+    private
+    def config_path
+      File.expand_path('~/.pin-note.yml')
     end
   end
 end
