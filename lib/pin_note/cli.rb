@@ -21,11 +21,12 @@ module PinNote
 
     desc "list", "List notes."
     option :categories, aliases: :c, type: :array, desc: 'List notes of only CATEGORY. If CATEGORY is \'_\', list them only has no category.'
+    option :format, aliases: :f, type: :string, default: 'human', desc: 'List note as FORMAT.'
 
     def list
       categories = options[:categories]
       if categories.nil?
-        puts load_notes
+        list_notes(load_notes, options[:format])
         return
       end
 
@@ -47,7 +48,7 @@ module PinNote
 
         true
       }
-      puts notes
+      list_notes(notes, options[:format])
     end
 
     private
@@ -67,6 +68,15 @@ module PinNote
 
     def load_notes
       load_saved.map {|h| Note.new(h)}
+    end
+
+    def list_notes(notes, format)
+      case format
+        when 'human'
+          puts notes
+        when 'json'
+          puts JSON.generate(notes.map(&:to_h))
+      end
     end
   end
 end

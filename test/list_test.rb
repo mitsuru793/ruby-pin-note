@@ -57,4 +57,26 @@ class ListTest < PinNoteUnitTest
     output = capture { run_command(%w[list --categories c2 c3]) }
     assert_equal(expected, output)
   end
+
+  def test_list_notes_as_json_filtering_category
+    run_command(%w[save --category c2 c2-1])
+    run_command(%w[save --category c3 c3-1])
+
+    date = @now.strftime('%Y-%m-%d %H:%M:%S %z')
+    expected = JSON.generate([
+        {
+            note: 'c2-1',
+            category: 'c2',
+            created_at: date,
+        },
+        {
+            note: 'c3-1',
+            category: 'c3',
+            created_at: date,
+        },
+    ]) + "\n"
+
+    output = capture { run_command(%w[list --categories c2 c3 --format json]) }
+    assert_equal(expected, output)
+  end
 end

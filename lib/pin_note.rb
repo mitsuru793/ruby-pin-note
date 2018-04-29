@@ -1,5 +1,6 @@
 # stdlib
 require 'yaml'
+require 'json'
 
 # 3rd party
 require 'dry-struct'
