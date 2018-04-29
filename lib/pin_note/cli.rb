@@ -23,11 +23,21 @@ module PinNote
     end
 
     desc "list", "List notes."
+    option :category, aliases: :c, type: :string, desc: 'List notes of only CATEGORY. If CATEGORY is \'_\', list them only has no category.'
 
     def list
       load_saved.each do |note_hash|
         note = Note.new(note_hash)
         date = note.created_at.strftime('%Y-%m-%d %H:%M:%S')
+
+        case options[:category] || nil
+          when nil
+            # not next
+          when '_'
+            next unless note.category.nil?
+          else
+            next unless note.category === options[:category]
+        end
 
         if note.category.nil?
           puts sprintf('[%s] %s', date, note.note)
