@@ -25,8 +25,7 @@ module PinNote
     def list
       categories = options[:categories]
       if categories.nil?
-        load_saved.each do |note_hash|
-          note = Note.new(note_hash)
+        load_notes do |note|
           puts note
         end
         return
@@ -35,9 +34,7 @@ module PinNote
       selected_empty = options[:categories].include?('_')
       selected_list = categories.reject {|c| c === '_'}.join('|')
       selected = Regexp.new('(' + selected_list + ')')
-      load_saved.each do |note_hash|
-        note = Note.new(note_hash)
-
+      load_notes do |note|
         if selected_empty && note.category.nil?
           puts note
           next
@@ -68,6 +65,12 @@ module PinNote
       end
 
       saved
+    end
+
+    def load_notes
+      load_saved.each do |note_hash|
+        yield Note.new(note_hash)
+      end
     end
   end
 end
