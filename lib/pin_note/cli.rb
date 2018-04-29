@@ -20,27 +20,38 @@ module PinNote
     end
 
     desc "list", "List notes."
-    option :category, aliases: :c, type: :string, desc: 'List notes of only CATEGORY. If CATEGORY is \'_\', list them only has no category.'
+    option :categories, aliases: :c, type: :array, desc: 'List notes of only CATEGORY. If CATEGORY is \'_\', list them only has no category.'
 
     def list
+      categories = options[:categories]
+      if categories.nil?
+        load_saved.each do |note_hash|
+          note = Note.new(note_hash)
+          list_note(note)
+        end
+        return
+      end
+
+      selected_empty = options[:categories].include?('_')
+      selected_list = categories.reject {|c| c === '_'}.join('|')
+      selected = Regexp.new('(' + selected_list + ')')
       load_saved.each do |note_hash|
         note = Note.new(note_hash)
-        date = note.created_at.strftime('%Y-%m-%d %H:%M:%S')
 
-        case options[:category] || nil
-          when nil
-            # not next
-          when '_'
-            next unless note.category.nil?
-          else
-            next unless note.category === options[:category]
+        if selected_empty && note.category.nil?
+          list_note(note)
+          next
         end
 
-        if note.category.nil?
-          puts sprintf('[%s] %s', date, note.note)
+        if m = selected.match(note.category)
+          selected_category = m[0]
         else
-          puts sprintf('[%s] %s: %s', date, note.category, note.note)
+          next
         end
+
+        next unless note.category === selected_category
+
+        list_note(note)
       end
     end
 
@@ -57,6 +68,16 @@ module PinNote
       end
 
       saved
+    end
+
+    def list_note(note)
+      date = note.created_at.strftime('%Y-%m-%d %H:%M:%S')
+
+      if note.category.nil?
+        puts sprintf('[%s] %s', date, note.note)
+      else
+        puts sprintf('[%s] %s: %s', date, note.category, note.note)
+      end
     end
   end
 end
