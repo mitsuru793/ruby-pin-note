@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
+
+require "thor"
+require 'yaml'
+require 'awesome_print'
+
+require 'pin_note'
+
+PinNote::Cli.start(ARGV)

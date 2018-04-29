@@ -9,4 +9,6 @@ gem "thor", "~> 0.20.0"
 
 group :development do
   gem "awesome_print", "~> 1.8"
+  gem "fakefs", "~> 0.13.3"
 end
+
