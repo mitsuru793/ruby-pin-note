@@ -7,9 +7,6 @@ require 'fileutils'
 # 3rd party
 require "minitest/mock"
 require "minitest/autorun"
-require 'fakefs'
+require 'fakefs/safe'
 
 require "pin_note"
-
-FakeFS.activate!
-FileUtils.mkdir_p(File.expand_path('~'))

@@ -1,7 +1,16 @@
 require "test_helper"
 
 class SaveTest < Minitest::Test
-  def test_save_word
+  def setup
+    FakeFS.activate!
+    FileUtils.mkdir_p(File.expand_path('~'))
+  end
+
+  def teardown
+    FakeFS.deactivate!
+  end
+
+  def test_save_word_without_category
     home = File.expand_path('~')
 
     config_path = File.join(home, '.pin-note.yml')
