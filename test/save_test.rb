@@ -60,10 +60,10 @@ class SaveTest < PinNoteUnitTest
     assert_equal('default', saved[0][:category])
 
     saved = run_command(%w[save --category cate note])
-    assert_equal('cate', saved[0][:category])
+    assert_equal('cate', saved[1][:category])
 
     ENV.delete('PIN_NOTE_CATEGORY')
     saved = run_command(%w[save note])
-    assert_nil(saved[0][:category])
+    assert_nil(saved[2][:category])
   end
 end
