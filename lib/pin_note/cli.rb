@@ -25,31 +25,29 @@ module PinNote
     def list
       categories = options[:categories]
       if categories.nil?
-        load_notes do |note|
-          puts note
-        end
+        puts load_notes
         return
       end
 
       selected_empty = options[:categories].include?('_')
       selected_list = categories.reject {|c| c === '_'}.join('|')
       selected = Regexp.new('(' + selected_list + ')')
-      load_notes do |note|
+      notes = load_notes.select {|note|
         if selected_empty && note.category.nil?
-          puts note
-          next
+          next true
         end
 
         if m = selected.match(note.category)
           selected_category = m[0]
         else
-          next
+          next false
         end
 
-        next unless note.category === selected_category
+        next false unless note.category === selected_category
 
-        puts note
-      end
+        true
+      }
+      puts notes
     end
 
     private
@@ -68,9 +66,7 @@ module PinNote
     end
 
     def load_notes
-      load_saved.each do |note_hash|
-        yield Note.new(note_hash)
-      end
+      load_saved.map {|h| Note.new(h)}
     end
   end
 end
