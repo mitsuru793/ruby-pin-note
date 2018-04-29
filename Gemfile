@@ -7,8 +7,11 @@ gemspec
 
 gem "thor", "~> 0.20.0"
 
-group :development do
-  gem "awesome_print", "~> 1.8"
+group :test do
   gem "fakefs", "~> 0.13.3"
+end
+
+group :test, :development do
+  gem "awesome_print", "~> 1.8"
 end
 
