@@ -16,6 +16,13 @@ class PinNoteUnitTest < Minitest::Test
     @now = Time.new
   end
 
+  def teardown
+    FakeFS do
+      path = File.expand_path('~/.pin-note.yml')
+      File.delete(path) if File.exist?(path)
+    end
+  end
+
   private
   def run_command(args, config_path = '~/.pin-note.yml')
     saved = nil
