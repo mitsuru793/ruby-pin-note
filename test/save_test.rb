@@ -9,7 +9,7 @@ class SaveTest < PinNoteUnitTest
             id: 1,
             note: 'Hello world!',
             category: nil,
-            created_at: @now.to_s,
+            created_at: @now,
         }
     ]
     assert_equal(expected, saved)
@@ -23,7 +23,7 @@ class SaveTest < PinNoteUnitTest
             id: 1,
             note: 'Hello world!',
             category: 'greet',
-            created_at: @now.to_s,
+            created_at: @now,
         }
     ]
     assert_equal(expected, saved)
