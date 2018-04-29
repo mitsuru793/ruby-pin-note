@@ -12,7 +12,7 @@ module PinNote
           {
               id: 1,
               note: word.join(' '),
-              category: options.fetch(:category, nil),
+              category: options[:category] || ENV['PIN_NOTE_CATEGORY'] || nil,
               created_at: Time.now.to_s,
           }
       ]
