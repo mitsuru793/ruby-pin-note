@@ -23,7 +23,7 @@ class PinNoteUnitTest < Minitest::Test
       FileUtils.mkdir_p(File.expand_path('~'))
 
       Time.stub :now, @now do
-        PinNote::Cli.start(args)
+        PinNote::Cli.start(args, debug: true)
       end
 
       saved = YAML.load_file(File.expand_path(config_path))

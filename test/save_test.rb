@@ -1,6 +1,12 @@
 require "test_helper"
 
 class SaveTest < PinNoteUnitTest
+  def test_save_without_note
+    e = assert_raises Thor::Error do
+      run_command(%w[save])
+    end
+  end
+
   def test_save_to_loaded
     run_command(%w[save yeah])
     saved = run_command(%w[save --category greet hello])
