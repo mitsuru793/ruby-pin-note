@@ -4,7 +4,7 @@ require 'awesome_print'
 module PinNote
   class Cli < Thor
     desc "save Here is note... #tag", "Save note."
-    option :from
+    option :category, aliases: :c, type: :string, desc: 'Save note on CATEGORY'
 
     def save(*word)
       config_path = File.expand_path('~/.pin-note.yml')
@@ -12,7 +12,7 @@ module PinNote
           {
               id: 1,
               note: word.join(' '),
-              category: nil,
+              category: options.fetch(:category, nil),
               created_at: Time.now.to_s,
           }
       ]

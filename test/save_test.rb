@@ -30,4 +30,25 @@ class SaveTest < Minitest::Test
     ]
     assert_equal(expected, YAML.load_file(config_path))
   end
+
+  def test_save_word_with_category
+    home = File.expand_path('~')
+
+    config_path = File.join(home, '.pin-note.yml')
+    now = Time.now
+
+    Time.stub :now, now do
+      PinNote::Cli.start(%w[save --category greet Hello world!])
+    end
+
+    expected = [
+        {
+            id: 1,
+            note: 'Hello world!',
+            category: 'greet',
+            created_at: now.to_s,
+        }
+    ]
+    assert_equal(expected, YAML.load_file(config_path))
+  end
 end
