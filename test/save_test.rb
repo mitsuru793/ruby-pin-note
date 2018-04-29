@@ -1,10 +1,6 @@
 require "test_helper"
 
-class SaveTest < Minitest::Test
-  def setup
-    @now = Time.new
-  end
-
+class SaveTest < PinNoteUnitTest
   def test_save_word_without_category
     saved = run_command(%w[save Hello world!])
 
@@ -45,20 +41,5 @@ class SaveTest < Minitest::Test
     ENV.delete('PIN_NOTE_CATEGORY')
     saved = run_command(%w[save note])
     assert_nil(saved[0][:category])
-  end
-
-  private
-  def run_command(args, config_path = '~/.pin-note.yml')
-    saved = nil
-    FakeFS do
-      FileUtils.mkdir_p(File.expand_path('~'))
-
-      Time.stub :now, @now do
-        PinNote::Cli.start(args)
-      end
-
-      saved = YAML.load_file(File.expand_path(config_path))
-    end
-    saved
   end
 end
