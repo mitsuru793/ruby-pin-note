@@ -1,6 +1,3 @@
-require "thor"
-require 'awesome_print'
-
 module PinNote
   class Cli < Thor
     desc "save Here is note... #tag", "Save a note."

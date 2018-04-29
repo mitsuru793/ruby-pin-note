@@ -3,7 +3,7 @@ require 'yaml'
 
 # 3rd party
 require 'dry-struct'
-
+require 'thor'
 
 module PinNote
   module Types
