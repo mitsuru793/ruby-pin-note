@@ -27,7 +27,7 @@ module PinNote
       if categories.nil?
         load_saved.each do |note_hash|
           note = Note.new(note_hash)
-          list_note(note)
+          puts note
         end
         return
       end
@@ -39,7 +39,7 @@ module PinNote
         note = Note.new(note_hash)
 
         if selected_empty && note.category.nil?
-          list_note(note)
+          puts note
           next
         end
 
@@ -51,7 +51,7 @@ module PinNote
 
         next unless note.category === selected_category
 
-        list_note(note)
+        puts note
       end
     end
 
@@ -68,16 +68,6 @@ module PinNote
       end
 
       saved
-    end
-
-    def list_note(note)
-      date = note.created_at.strftime('%Y-%m-%d %H:%M:%S')
-
-      if note.category.nil?
-        puts sprintf('[%s] %s', date, note.note)
-      else
-        puts sprintf('[%s] %s: %s', date, note.category, note.note)
-      end
     end
   end
 end
