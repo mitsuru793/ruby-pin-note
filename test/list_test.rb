@@ -1,18 +1,21 @@
 require "test_helper"
 
 class ListTest < PinNoteUnitTest
-  def test_list_notes
-    run_command(%w[save --category greet Hello])
-    run_command(%w[save --category greet Hi])
-    run_command(%w[save Man])
-    run_command(%w[save Woman])
+  def setup
+    super
+    run_command(%w[save --category c1 c1-1])
+    run_command(%w[save --category c1 c1-2])
+    run_command(%w[save 1])
+    run_command(%w[save 2])
+  end
 
+  def test_list_notes
     date = @now.strftime('%Y-%m-%d %H:%M:%S')
     expected = <<~EOF
-    [#{date}] greet: Hello
-    [#{date}] greet: Hi
-    [#{date}] Man
-    [#{date}] Woman
+    [#{date}] c1: c1-1
+    [#{date}] c1: c1-2
+    [#{date}] 1
+    [#{date}] 2
     EOF
 
     output = capture { run_command(%w[list]) }
@@ -20,29 +23,21 @@ class ListTest < PinNoteUnitTest
   end
 
   def test_list_notes_of_the_category
-    run_command(%w[save --category greet Hello])
-    run_command(%w[save --category greet Hi])
-    run_command(%w[save Man])
-
     date = @now.strftime('%Y-%m-%d %H:%M:%S')
     expected = <<~EOF
-    [#{date}] greet: Hello
-    [#{date}] greet: Hi
+    [#{date}] c1: c1-1
+    [#{date}] c1: c1-2
     EOF
 
-    output = capture { run_command(%w[list --category greet]) }
+    output = capture { run_command(%w[list --category c1]) }
     assert_equal(expected, output)
   end
 
   def test_list_notes_of_the_empty_category
-    run_command(%w[save --category greet Hi])
-    run_command(%w[save Man])
-    run_command(%w[save Woman])
-
     date = @now.strftime('%Y-%m-%d %H:%M:%S')
     expected = <<~EOF
-    [#{date}] Man
-    [#{date}] Woman
+    [#{date}] 1
+    [#{date}] 2
     EOF
 
     output = capture { run_command(%w[list --category _]) }
