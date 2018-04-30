@@ -30,23 +30,9 @@ module PinNote
         return
       end
 
-      selected_empty = options[:categories].include?('_')
-      selected_list = categories.reject {|c| c === '_'}.join('|')
-      selected = Regexp.new('(' + selected_list + ')')
+      selected = categories.join('|')
       notes = load_notes.select {|note|
-        if selected_empty && note.category.nil?
-          next true
-        end
-
-        if m = selected.match(note.category)
-          selected_category = m[0]
-        else
-          next false
-        end
-
-        next false unless note.category === selected_category
-
-        true
+        selected.match?(note.category)
       }
       list_notes(notes, options[:format])
     end
