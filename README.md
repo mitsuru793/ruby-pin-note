@@ -1,8 +1,6 @@
-# PinNote
+# PinNote [![Build Status](https://travis-ci.org/mitsuru793/ruby-pin-note.svg?branch=master)](https://travis-ci.org/mitsuru793/ruby-pin-note) [![Maintainability](https://api.codeclimate.com/v1/badges/2db5e897884af5270127/maintainability)](https://codeclimate.com/github/mitsuru793/ruby-pin-note/maintainability) [![Inline docs](http://inch-ci.org/github/mitsuru793/ruby-pin-note.svg?branch=master)](http://inch-ci.org/github/mitsuru793/ruby-pin-note)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/pin/note`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Save one text like tweet from cli. This means you tweet on private as note. Your notes are saved in your local.
 
 ## Installation
 
@@ -22,7 +20,59 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+❯ pin-note
+Commands:
+  pin-note help [COMMAND]             # Describe available commands or one specific command
+  pin-note list                       # List notes.
+  pin-note save Here is note... #tag  # Save a note.
+```
+
+Options:
+ + c means category.
+ + f means format.
+
+```
+pin-note save Today is happy.
+pin-note save -c todo by my room
+pin-note save -c todo clean my room
+pin-note save -c want car
+
+$ pin-note list
+[2018-04-30 16:51:46] inbox: Today is happy.
+[2018-04-30 16:51:47] todo: by my room
+[2018-04-30 16:51:47] todo: clean my room
+[2018-04-30 16:53:26] want: car
+
+$ pin-note list -c todo
+[2018-04-30 16:51:47] todo: by my room
+[2018-04-30 16:51:47] todo: clean my room
+
+$ pin-note list -c inbox want
+[2018-04-30 16:51:46] inbox: Today is happy.
+[2018-04-30 16:53:26] want: car
+
+$ pin-note list -f json
+# => List notes as json. You can use them with jq.
+```
+
+[jq](https://stedolan.github.io/jq/) is like sql for json.
+
+You can change default category with an Evironment variable.
+
+```
+$ export PIN_NOTE_DEFAULT_CATEGORY=todo
+$ pin-note save buy milk
+$ pin-note save clean my room
+
+$ unset PIN_NOTE_DEFAULT_CATEGORY
+$ pin-note save Today is happy!
+
+$ pin-note list
+[2018-04-30 17:04:55] todo: buy milk
+[2018-04-30 17:05:04] todo: clean my room
+[2018-04-30 17:05:15] inbox: Today is happy!
+```
 
 ## Development
 
