@@ -8,7 +8,7 @@ module PinNote
 
       note = Note.new(
           text: words.join(' '),
-          category: options[:category] || ENV['PIN_NOTE_CATEGORY'] || 'inbox',
+          category: options[:category] || ENV['PIN_NOTE_DEFAULT_CATEGORY'] || 'inbox',
           created_at: Time.now,
           )
       saved = load_saved

@@ -55,7 +55,7 @@ class SaveTest < PinNoteUnitTest
   end
 
   def test_set_category_env
-    ENV['PIN_NOTE_CATEGORY'] = 'default'
+    ENV['PIN_NOTE_DEFAULT_CATEGORY'] = 'default'
 
     saved = run_command(%w[save note])
     assert_equal('default', saved[0][:category])
@@ -63,7 +63,7 @@ class SaveTest < PinNoteUnitTest
     saved = run_command(%w[save --category cate note])
     assert_equal('cate', saved[1][:category])
 
-    ENV.delete('PIN_NOTE_CATEGORY')
+    ENV.delete('PIN_NOTE_DEFAULT_CATEGORY')
     saved = run_command(%w[save note])
     assert_equal('inbox', saved[2][:category])
   end
