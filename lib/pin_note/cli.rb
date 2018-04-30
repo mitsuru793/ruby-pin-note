@@ -7,7 +7,7 @@ module PinNote
       words.unshift(word)
 
       note = Note.new(
-          note: words.join(' '),
+          text: words.join(' '),
           category: options[:category] || ENV['PIN_NOTE_CATEGORY'] || 'inbox',
           created_at: Time.now,
           )

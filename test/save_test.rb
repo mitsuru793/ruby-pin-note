@@ -14,12 +14,12 @@ class SaveTest < PinNoteUnitTest
 
     expected = [
         {
-            note: 'yeah',
+            text: 'yeah',
             category: 'inbox',
             created_at: @now,
         },
         {
-            note: 'hello',
+            text: 'hello',
             category: 'greet',
             created_at: @now,
         }
@@ -33,7 +33,7 @@ class SaveTest < PinNoteUnitTest
 
     expected = [
         {
-            note: 'Hello world!',
+            text: 'Hello world!',
             category: 'inbox',
             created_at: @now,
         }
@@ -46,7 +46,7 @@ class SaveTest < PinNoteUnitTest
 
     expected = [
         {
-            note: 'Hello world!',
+            text: 'Hello world!',
             category: 'greet',
             created_at: @now,
         }

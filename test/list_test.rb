@@ -54,12 +54,12 @@ class ListTest < PinNoteUnitTest
     date = @now.strftime('%Y-%m-%d %H:%M:%S %z')
     expected = JSON.generate([
         {
-            note: 'c2-1',
+            text: 'c2-1',
             category: 'c2',
             created_at: date,
         },
         {
-            note: 'c3-1',
+            text: 'c3-1',
             category: 'c3',
             created_at: date,
         },
