@@ -15,7 +15,7 @@ class SaveTest < PinNoteUnitTest
     expected = [
         {
             note: 'yeah',
-            category: nil,
+            category: 'inbox',
             created_at: @now,
         },
         {
@@ -34,7 +34,7 @@ class SaveTest < PinNoteUnitTest
     expected = [
         {
             note: 'Hello world!',
-            category: nil,
+            category: 'inbox',
             created_at: @now,
         }
     ]
@@ -65,6 +65,6 @@ class SaveTest < PinNoteUnitTest
 
     ENV.delete('PIN_NOTE_CATEGORY')
     saved = run_command(%w[save note])
-    assert_nil(saved[2][:category])
+    assert_equal('inbox', saved[2][:category])
   end
 end

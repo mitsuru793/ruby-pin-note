@@ -14,8 +14,8 @@ class ListTest < PinNoteUnitTest
     expected = <<~EOF
     [#{date}] c1: c1-1
     [#{date}] c1: c1-2
-    [#{date}] 1
-    [#{date}] 2
+    [#{date}] inbox: 1
+    [#{date}] inbox: 2
     EOF
 
     output = capture { run_command(%w[list]) }
@@ -30,17 +30,6 @@ class ListTest < PinNoteUnitTest
     EOF
 
     output = capture { run_command(%w[list --categories c1]) }
-    assert_equal(expected, output)
-  end
-
-  def test_list_notes_of_the_empty_category
-    date = @now.strftime('%Y-%m-%d %H:%M:%S')
-    expected = <<~EOF
-    [#{date}] 1
-    [#{date}] 2
-    EOF
-
-    output = capture { run_command(%w[list --categories _]) }
     assert_equal(expected, output)
   end
 

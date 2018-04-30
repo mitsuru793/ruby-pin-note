@@ -8,7 +8,7 @@ module PinNote
 
       note = Note.new(
           note: words.join(' '),
-          category: options[:category] || ENV['PIN_NOTE_CATEGORY'] || nil,
+          category: options[:category] || ENV['PIN_NOTE_CATEGORY'] || 'inbox',
           created_at: Time.now,
           )
       saved = load_saved
@@ -20,7 +20,7 @@ module PinNote
     end
 
     desc "list", "List notes."
-    option :categories, aliases: :c, type: :array, desc: 'List notes of only CATEGORY. If CATEGORY is \'_\', list them only has no category.'
+    option :categories, aliases: :c, type: :array, desc: 'List notes of only CATEGORY.'
     option :format, aliases: :f, type: :string, default: 'human', desc: 'List note as FORMAT.'
 
     def list
